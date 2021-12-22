@@ -589,21 +589,21 @@ class Member(discord.abc.Messageable, _BaseUser):
 
         Depending on the parameter passed, this requires different permissions listed below:
 
-        +------------------------------+--------------------------------------+
-        |   Parameter                  |              Permission              |
-        +------------------------------+--------------------------------------+
-        | nick                         | :attr:`Permissions.manage_nicknames` |
-        +------------------------------+--------------------------------------+
-        | mute                         | :attr:`Permissions.mute_members`     |
-        +------------------------------+--------------------------------------+
-        | deafen                       | :attr:`Permissions.deafen_members`   |
-        +------------------------------+--------------------------------------+
-        | roles                        | :attr:`Permissions.manage_roles`     |
-        +------------------------------+--------------------------------------+
-        | voice_channel                | :attr:`Permissions.move_members`     |
-        +------------------------------+--------------------------------------+
-        | communication_disabled_until | :attr:`Permissions.moderate_members` |
-        +------------------------------+--------------------------------------+
+        +-----------------+--------------------------------------+
+        |   Parameter     |              Permission              |
+        +-----------------+--------------------------------------+
+        | nick            | :attr:`Permissions.manage_nicknames` |
+        +-----------------+--------------------------------------+
+        | mute            | :attr:`Permissions.mute_members`     |
+        +-----------------+--------------------------------------+
+        | deafen          | :attr:`Permissions.deafen_members`   |
+        +-----------------+--------------------------------------+
+        | roles           | :attr:`Permissions.manage_roles`     |
+        +-----------------+--------------------------------------+
+        | voice_channel   | :attr:`Permissions.move_members`     |
+        +-----------------+--------------------------------------+
+        | timed_out_until | :attr:`Permissions.moderate_members` |
+        +-----------------+--------------------------------------+
 
         All parameters are optional.
 
@@ -630,7 +630,7 @@ class Member(discord.abc.Messageable, _BaseUser):
             Pass ``None`` to kick them from voice.
         reason: Optional[:class:`str`]
             The reason for editing this member. Shows up on the audit log.
-        communication_disabled_until: Optional[:class:`datetime.datetime`]
+        timed_out_until: Optional[:class:`datetime.datetime`]
             Temporarily puts the member in timeout until this time. If the value is ``None``, then the user is removed
             from timeout.
 
@@ -736,7 +736,7 @@ class Member(discord.abc.Messageable, _BaseUser):
         HTTPException
             An error occurred doing the request.
         """
-        await self.edit(communication_disabled_until=until, reason=reason)
+        await self.edit(timed_out_until=until, reason=reason)
 
 	# Copy from Pycord
     async def remove_timeout(self, *, reason: Optional[str] = None):
@@ -761,7 +761,7 @@ class Member(discord.abc.Messageable, _BaseUser):
         HTTPException
             An error occurred doing the request.
         """
-        await self.edit(communication_disabled_until=None, reason=reason)
+        await self.edit(timed_out_until=None, reason=reason)
 
     async def request_to_speak(self):
         """|coro|
