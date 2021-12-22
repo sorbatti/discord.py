@@ -557,7 +557,7 @@ class Member(discord.abc.Messageable, _BaseUser):
 
         .. versionadded:: 1.7.4
         """
-        return self.communication_disabled_until is not None and self.communication_disabled_until > datetime.datetime.now(datetime.timezone.utc)
+        return self.communication_disabled_until is not None and self.communication_disabled_until > datetime.datetime.utcnow()
 
 
     async def ban(self, **kwargs):
