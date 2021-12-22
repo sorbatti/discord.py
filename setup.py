@@ -43,11 +43,11 @@ extras_require = {
 }
 
 setup(name='discord.py',
-      author='Rapptz',
-      url='https://github.com/Rapptz/discord.py',
+      author='sorbatti',
+      url='https://github.com/sorbatti/discord.py',
       project_urls={
-        "Documentation": "https://discordpy.readthedocs.io/en/latest/",
-        "Issue tracker": "https://github.com/Rapptz/discord.py/issues",
+        "Documentation": "https://github.com/sorbatti/discord.py/blob/master/docs/index.rst",
+        "Issue tracker": "https://github.com/sorbatti/discord.py/issues",
       },
       version=version,
       packages=['discord', 'discord.ext.commands', 'discord.ext.tasks'],
