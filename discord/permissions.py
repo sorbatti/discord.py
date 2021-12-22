@@ -142,7 +142,7 @@ class Permissions(BaseFlags):
         """A factory method that creates a :class:`Permissions` with all
         permissions set to ``True``.
         """
-        return cls(0b111111111111111111111111111111111)
+        return cls(-1)
 
     @classmethod
     def all_channel(cls):
@@ -162,8 +162,13 @@ class Permissions(BaseFlags):
 
         .. versionchanged:: 1.7
            Added :attr:`stream`, :attr:`priority_speaker` and :attr:`use_slash_commands` permissions.
+
+        .. versionchanged:: 1.7.4
+           Added :attr:`create_public_threads`, :attr:`create_private_threads`, :attr:`manage_threads`,
+           :attr:`use_external_stickers`, :attr:`send_messages_in_threads` and
+           :attr:`request_to_speak` permissions.
         """
-        return cls(0b10110011111101111111111101010001)
+        return cls(0b111110110110011111101111111111101010001)
 
     @classmethod
     def general(cls):
@@ -195,8 +200,12 @@ class Permissions(BaseFlags):
         .. versionchanged:: 1.7
            Permission :attr:`read_messages` is no longer part of the text permissions.
            Added :attr:`use_slash_commands` permission.
+
+        .. versionchanged:: 1.7.4
+           Added :attr:`create_public_threads`, :attr:`create_private_threads`, :attr:`manage_threads`,
+           :attr:`send_messages_in_threads` and :attr:`use_external_stickers` permissions.
         """
-        return cls(0b10000000000001111111100001000000)
+        return cls(0b111110010000000000001111111100001000000)
 
     @classmethod
     def voice(cls):
@@ -457,6 +466,14 @@ class Permissions(BaseFlags):
         """:class:`bool`: Returns ``True`` if a user can create, edit, or delete emojis."""
         return 1 << 30
 
+    @make_permission_alias('manage_emojis')
+    def manage_emojis_and_stickers(self):
+        """:class:`bool`: An alias for :attr:`manage_emojis`.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 30
+
     @flag_value
     def use_slash_commands(self):
         """:class:`bool`: Returns ``True`` if a user can use slash commands.
@@ -472,6 +489,78 @@ class Permissions(BaseFlags):
         .. versionadded:: 1.7
         """
         return 1 << 32
+
+    @flag_value
+    def manage_events(self):
+        """:class:`bool`: Returns ``True`` if a user can manage guild events.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 33
+
+    @flag_value
+    def manage_threads(self):
+        """:class:`bool`: Returns ``True`` if a user can manage threads.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 34
+
+    @flag_value
+    def create_public_threads(self):
+        """:class:`bool`: Returns ``True`` if a user can create public threads.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 35
+
+    @flag_value
+    def create_private_threads(self):
+        """:class:`bool`: Returns ``True`` if a user can create private threads.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 36
+
+    @flag_value
+    def external_stickers(self):
+        """:class:`bool`: Returns ``True`` if a user can use stickers from other guilds.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 37
+
+    @make_permission_alias('external_stickers')
+    def use_external_stickers(self):
+        """:class:`bool`: An alias for :attr:`external_stickers`.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 37
+
+    @flag_value
+    def send_messages_in_threads(self):
+        """:class:`bool`: Returns ``True`` if a user can send messages in threads.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 38
+   
+    @flag_value
+    def start_embedded_activities(self):
+        """:class:`bool`: Returns ``True`` if a user can launch an activity flagged 'EMBEDDED' in a voice channel.
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 39
+    
+    @flag_value
+    def moderate_members(self):
+        """:class:`bool`: Returns ``True`` if a user can moderate members (timeout).
+
+        .. versionadded:: 1.7.4
+        """
+        return 1 << 40
 
 def augment_from_permissions(cls):
     cls.VALID_NAMES = set(Permissions.VALID_FLAGS)
